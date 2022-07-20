@@ -12,7 +12,7 @@ import { Observable } from '@apollo/client/utilities'
 import { GraphQLError } from 'graphql'
 import { getAccessToken, setAccessToken } from './utils/localStorage'
 
-  const REFRESH_TOKEN = gql`
+  export const REFRESH_TOKEN = gql`
   mutation RefreshToken {
     refreshToken {
       accessToken
