@@ -1,20 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {ApolloProvider} from '@apollo/client'
-import AuthContextProvider from './context/auth.context'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import AuthProvider from './context/auth.context'
 import './index.css'
 import App from './App'
-import client from './client'
+import client from './graphql/client'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const root = document.getElementById('root') as HTMLElement
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <ApolloProvider client={client}>
-        <App />
-      </ApolloProvider>
-    </AuthContextProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ApolloProvider client={client}>
+          <Routes>
+            <Route path='/*' element={<App />} />
+          </Routes>
+        </ApolloProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,22 +1,18 @@
-import { createContext, FC, useState } from 'react'
+import { createContext, FC, ReactNode } from 'react'
+import { Store, useStore } from '../hooks/useStore'
+import { getAccessToken } from '../utils/localStorage'
 
-export const AuthContext = createContext<any>(null)
+const accessToken = getAccessToken()
 
-const useToken = function() {
+export const AuthContext = createContext<Store | null>(null)
 
-    const [token, setToken] = useState<string>('')
+const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
 
-    return {
-        token,
-        setToken
-    }
-}
-
-const AuthContextProvider: FC<{children: any}> = ({children}) => {
+    const store = useStore()
 
     return (
-        <AuthContext.Provider value={useToken()}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={store}>{children}</AuthContext.Provider>
     )
 }
 
-export default AuthContextProvider
+export default AuthProvider

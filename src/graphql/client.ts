@@ -3,28 +3,22 @@ import {
     ApolloLink,
     InMemoryCache,
     FetchResult,
-    createHttpLink,
-    gql
+    createHttpLink
   } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { setContext } from '@apollo/client/link/context'
 import { Observable } from '@apollo/client/utilities'
 import { GraphQLError } from 'graphql'
-import { getAccessToken, setAccessToken } from './utils/localStorage'
+import { getAccessToken, setAccessToken } from '../utils/localStorage'
+import { REFRESH_TOKEN } from './mutations'
 
-  export const REFRESH_TOKEN = gql`
-  mutation RefreshToken {
-    refreshToken {
-      accessToken
-    }
-  }`
 
   const httpLink = createHttpLink({
     uri: 'http://localhost:5000/graphql',
     credentials: 'include'
   })
   
-  const authLink = setContext((operation, { headers }) => {
+  const authLink = setContext((_, { headers }) => {
 
     const token = getAccessToken()
   
