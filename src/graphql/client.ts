@@ -68,8 +68,7 @@ import { REFRESH_TOKEN } from './mutations'
                     }
                   })();
                 }
-              );
-  
+              )
               return observable;
           }
         }
@@ -79,17 +78,18 @@ import { REFRESH_TOKEN } from './mutations'
     }
   );
 
+  export const cache = new InMemoryCache()
   
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, authLink, httpLink]),
-    cache: new InMemoryCache()
+    cache
   });
   
   // Request a refresh token to then stores and returns the accessToken.
   const refreshToken = async () => {
     try {
       const refreshResolverResponse = await client.mutate({
-        mutation: REFRESH_TOKEN,
+        mutation: REFRESH_TOKEN
       });
 
       console.log(refreshResolverResponse)

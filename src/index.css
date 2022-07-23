@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.social-icon {
+    display: inline-block;
+    background-image: url('./../public/images/footerSprite.png');
+    background-size: 160px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.fb {
+    background-position: -10px -4px;
+}
+
+.twitter {
+    background-position: -60px -4px;
+}
+
+.ig {
+    background-position: -10px -52px;
+}

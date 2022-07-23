@@ -1,14 +1,19 @@
 import {Outlet, Navigate, useLocation} from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import { useQuery } from '@apollo/client'
+import { PROFILE } from '../graphql/queries'
 
 function ProtectedRoute() {
 
-    const auth = useAuth()
+    const {data, error} = useQuery(PROFILE)
+
     const location = useLocation()
 
-    return (
-        (auth?.accessToken) ? <Outlet /> : <Navigate to='/login' replace state={{from: location}} />
-    )
+    console.log(data)
+
+    if(error) return <Navigate to='/login' replace state={{from: location}} />
+
+    return <Outlet />
+
 }
 
 export default ProtectedRoute

@@ -1,8 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/auth.context";
+import {useQuery} from '@apollo/client'
+import { PROFILE } from '../graphql/queries'
 
 export function useAuth() {
-    const auth = useContext(AuthContext)?.auth
+    const {error, data} = useQuery(PROFILE)
 
-    return auth
+    if(error) return null
+
+    if(data) return data.user
+
 }

@@ -7,10 +7,31 @@ mutation RefreshToken {
   }
 }`
 
+export const REGISTER = gql`
+mutation Register($input: UserRegisterInput!) {
+    register(input: $input) {
+      id,
+      name,
+      email
+    }
+  }
+`
+
 export const LOGIN = gql`
 mutation Login($input: UserLoginInput!) {
   login(input: $input) {
-    access_token
+    access_token,
+    user {
+        id,
+        name,
+        email
+    }
   }
+}
+`
+
+export const LOGOUT = gql`
+mutation Logout {
+  logout
 }
 `
