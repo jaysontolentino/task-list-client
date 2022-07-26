@@ -3,14 +3,11 @@ import {useNavigate} from 'react-router-dom'
 import { LOGIN } from '../graphql/mutations'
 import { setAccessToken } from '../utils/localStorage'
 import { useForm } from '../hooks/useForm'
-import { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
 
 
 function Login() {
 
     const navigate = useNavigate()
-    const context = useContext(AuthContext)
 
     const {data: userInput, onChange, onSubmit} = useForm(handleSubmit, {
         email: '',

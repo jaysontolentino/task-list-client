@@ -4,7 +4,7 @@ import { Logo } from "./Logo"
 import { useAuth } from '../hooks/useAuth'
 import { LOGOUT } from '../graphql/mutations'
 import { removeAccessToken } from '../utils/localStorage'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 function Header() {
@@ -28,6 +28,9 @@ function Header() {
     function handleLogout() {
         logout()
     }
+
+    useEffect(() => {
+    }, [context]);
 
 
     return (
