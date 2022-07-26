@@ -86,7 +86,7 @@ import { REFRESH_TOKEN } from './mutations'
   });
   
   // Request a refresh token to then stores and returns the accessToken.
-  const refreshToken = async () => {
+  export const refreshToken = async () => {
     try {
       const refreshResolverResponse = await client.mutate({
         mutation: REFRESH_TOKEN
