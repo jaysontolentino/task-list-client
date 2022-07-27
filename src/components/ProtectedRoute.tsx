@@ -1,7 +1,7 @@
 import {Outlet, Navigate, useLocation} from 'react-router-dom'
 import {useQuery} from '@apollo/client'
 import { PROFILE } from '../graphql/queries'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 function ProtectedRoute() {
@@ -9,16 +9,13 @@ function ProtectedRoute() {
     const {error, loading, data} = useQuery(PROFILE)
     const context = useContext(AuthContext)
 
-    const [isLoading, setLoading] = useState(true)
-
     useEffect(() => {
 
         if(data) {
-            setLoading(false)
             context?.setUser(data.user)
         }
 
-    }, [loading, context, data])
+    }, [loading])
 
     if(loading) return (
         <div className="w-screen h-screen flex justify-center items-center absolute top-0 left-0 bg-[#23AAAA]">
