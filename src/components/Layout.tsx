@@ -13,8 +13,6 @@ function Layout() {
             <Header />
             <main className='flex flex-col flex-1 justify-center items-center bg-slate-100'>
                 <Outlet />
-
-                <pre>{JSON.stringify(context)}</pre>
             </main>
             <Footer />
         </div>

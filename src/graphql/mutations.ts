@@ -35,3 +35,12 @@ mutation Logout {
   logout
 }
 `
+
+export const ADD_TASK = gql`
+mutation AddTask($input: InputAddTask!) {
+  addTask(input: $input) {
+    task,
+    description
+  }
+}
+`;

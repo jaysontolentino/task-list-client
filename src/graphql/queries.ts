@@ -9,3 +9,14 @@ query Profile {
     }
   }
 `
+
+export const TASKS = gql`
+query UserTasks {
+  userTasks {
+    id,
+    task,
+    description,
+    created_at
+  }
+}
+`;
