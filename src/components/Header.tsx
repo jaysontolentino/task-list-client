@@ -6,6 +6,7 @@ import { LOGOUT } from '../graphql/mutations'
 import { removeAccessToken } from '../utils/localStorage'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import Button from './Button'
 
 function Header() {
 
@@ -29,6 +30,7 @@ function Header() {
         logout()
     }
 
+
     useEffect(() => {
     }, [context]);
 
@@ -40,8 +42,8 @@ function Header() {
 
                 {user &&
                 <ul className='flex justify-around items-center'>
-                    <li><Link className='bg-[#FEB708] px-[12px] py-2 rounded' to='/tasks'>Tasks</Link></li>
-                    <li><button className="bg-[#FEB708] px-[12px] py-2 rounded" onClick={handleLogout}>Logout</button></li>
+                    <li><Button xs="px-[12px] py-2" onClick={context?.toggleModal} text="New Task" /></li>
+                    <li><Button xs="px-[12px] py-2" onClick={handleLogout} text="Logout" /></li>
                 </ul>
                 }
 

@@ -3,29 +3,40 @@ import {useNavigate} from 'react-router-dom'
 import { LOGIN } from '../graphql/mutations'
 import { setAccessToken } from '../utils/localStorage'
 import { useForm } from '../hooks/useForm'
+import Alert from '../components/Alert'
 
 
 function Login() {
 
     const navigate = useNavigate()
 
-    const {data: userInput, onChange, onSubmit} = useForm(handleSubmit, {
+    const {data, error, onChange, onSubmit, setError} = useForm(handleSubmit, {
         email: '',
         password: ''
     })
 
-    const [login, {loading, error}] = useMutation(LOGIN, {
-        update(cache, {data: {login: userData}}) {
-            setAccessToken(userData.access_token)
+    const [login, {loading}] = useMutation(LOGIN, {
+        onCompleted(data) {
+            console.log(data)
+            setAccessToken(data.login.access_token)
             navigate('/')
         },
-        variables: {
-            input: userInput
-        }
+        onError(error) {
+            if(error.message === 'Failed to fetch') {
+                setError('Internal server error')
+            }else {
+                setError(error.message)
+            }           
+        },
     })
 
+
     function handleSubmit() {
-        login()
+        login({
+            variables: {
+                input: data
+            }
+        })
     }
 
     return (
@@ -39,7 +50,7 @@ function Login() {
 
                     <button type="submit" className="w-full p-2 bg-[#23AAAA] text-white rounded">{loading ? 'Loading':'Login'}</button>
 
-                    {error && <span className='w-full p-2 bg-red-200 rounded border border-red-500 text-red-700 text-center'>{error.message}</span>}
+                    {error && <Alert type="error" message={error} />}
                     
                 </form>
             </div>

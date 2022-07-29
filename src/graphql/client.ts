@@ -74,7 +74,9 @@ import { REFRESH_TOKEN } from './mutations'
         }
       }
   
-      if (networkError) console.log(`[Network error]: ${networkError}`);
+      if (networkError) {
+        alert(`Can't connect to server`)
+      }
     }
   );
 
@@ -91,8 +93,6 @@ import { REFRESH_TOKEN } from './mutations'
       const refreshResolverResponse = await client.mutate({
         mutation: REFRESH_TOKEN
       });
-
-      console.log(refreshResolverResponse)
   
       const accessToken = refreshResolverResponse.data?.refreshToken.accessToken;
       setAccessToken(accessToken)

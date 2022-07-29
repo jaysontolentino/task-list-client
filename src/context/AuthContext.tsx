@@ -6,10 +6,12 @@ type IAUthUser = {
     email: string
 }
 
-type IAuthContext = {
+export type IAuthContext = {
     auth: AuthState
+    openModal: boolean
     setUser: (user: IAUthUser | null) => void
     removeUser: () => void
+    toggleModal: () => void
 }
 
 type AuthState = {
@@ -23,6 +25,8 @@ function AuthProvider({children}: any) {
     const [auth, setAuth] = useState<AuthState>({
         user: null
     })
+
+    const [openModal, setOpenModal] = useState(false)
 
     const setUser = (user: IAUthUser | null) => {
         setAuth({
@@ -38,8 +42,10 @@ function AuthProvider({children}: any) {
         })
     }
 
+    const toggleModal = () => setOpenModal(!openModal)
+
     return (
-        <AuthContext.Provider value={{auth, setUser, removeUser}}>
+        <AuthContext.Provider value={{auth, openModal, setUser, removeUser, toggleModal}}>
             {children}
         </AuthContext.Provider>
     )
