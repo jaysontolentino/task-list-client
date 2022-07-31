@@ -1,22 +1,19 @@
-import { useQuery } from '@apollo/client'
-import { useContext } from 'react'
+import { useContext } from 'react';
 import Loading from '../components/Loading'
 import Modal from '../components/Modal'
 import Task, { ITask } from '../components/Task'
-import { AuthContext } from '../context/AuthContext'
-import { TASKS } from '../graphql/queries'
-
+import AppContext from '../context/AppContext';
+import useTask from '../hooks/useTask'
 
 
 function Tasks() {
 
-    const {data, error, loading} = useQuery(TASKS)
-    const context = useContext(AuthContext)
+    const context = useContext(AppContext);
 
-    
+    const {getTasks} = useTask()
+    const {loading, error, data} = getTasks
+
     if(loading) return <Loading />
-
-    //if(context?.openModal) return 
 
     return (
         <>        
@@ -24,13 +21,15 @@ function Tasks() {
 
                 {error && <span>{error.message}</span>}
 
-                <div className="w-2/4 flex flex-col bg-white shadow-sm rounded p-4 gap-y-4">
+                <div className="w-3/4 flex flex-col bg-white shadow-md rounded p-4 gap-y-4">
 
                     <div className=" w-full text-center inline-block">
-                        <h1 className="font-medium text-2xl">Task List</h1>
+                        <h1 className="font-medium text-2xl">My Task List</h1>
                     </div>
 
-                    <ul>
+                    {data.userTasks < 0 && <span className='text-sm text-black'>You have 0 task</span> }
+
+                    <ul className='flex flex-col gap-y-3'>
                     {data.userTasks.map((task: ITask) => {
                         return <li key={task.id}><Task task={task} /></li>
                     })}
@@ -40,8 +39,7 @@ function Tasks() {
                 
             </div>
                 
-            {context?.openModal && <Modal />}
-            
+            {context?.modal.isOpen && <Modal />}
         </>
 
     )

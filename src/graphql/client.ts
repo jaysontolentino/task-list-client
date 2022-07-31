@@ -32,14 +32,13 @@ import { REFRESH_TOKEN } from './mutations'
   
   const errorLink = onError(
     ({ graphQLErrors, networkError, operation, forward }) => {
-
-        console.log(graphQLErrors)
+      
       if (graphQLErrors) {
         for (let err of graphQLErrors) {
           switch (err.extensions.code) {
             case 'UNAUTHENTICATED':
               // ignore 401 error for a refresh request
-              console.log(operation.operationName)
+              //console.log(operation.operationName)
               if (operation.operationName === 'refreshToken') return;
   
               const observable = new Observable<FetchResult<Record<string, any>>>(

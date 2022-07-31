@@ -1,41 +1,31 @@
-import {useMutation} from '@apollo/client'
-import {useNavigate} from 'react-router-dom'
-import { LOGIN } from '../graphql/mutations'
-import { setAccessToken } from '../utils/localStorage'
 import { useForm } from '../hooks/useForm'
 import Alert from '../components/Alert'
+import { useAuth } from '../hooks/useAuth'
 
 
 function Login() {
-
-    const navigate = useNavigate()
 
     const {data, error, onChange, onSubmit, setError} = useForm(handleSubmit, {
         email: '',
         password: ''
     })
 
-    const [login, {loading}] = useMutation(LOGIN, {
-        onCompleted(data) {
-            console.log(data)
-            setAccessToken(data.login.access_token)
-            navigate('/')
-        },
-        onError(error) {
-            if(error.message === 'Failed to fetch') {
-                setError('Internal server error')
-            }else {
-                setError(error.message)
-            }           
-        },
-    })
+    const {session} = useAuth()
+    const [login, {loading}] = session
 
 
     function handleSubmit() {
         login({
             variables: {
                 input: data
-            }
+            },
+            onError(error) {
+                if(error.message === 'Failed to fetch') {
+                    setError('Internal server error')
+                }else {
+                    setError(error.message)
+                }    
+            },
         })
     }
 

@@ -39,8 +39,31 @@ mutation Logout {
 export const ADD_TASK = gql`
 mutation AddTask($input: InputAddTask!) {
   addTask(input: $input) {
+    id,
     task,
-    description
+    description,
+    complete,
+    created_at
+  }
+}
+`;
+
+export const COMPLETE_TASK = gql`
+mutation CompleteTask($id: String!) {
+  completeTask(id: $id) {
+  	id,
+    task,
+    complete
+  }
+}
+`;
+
+export const DELETE_TASK = gql`
+mutation DeleteTask($id: String!) {
+  deleteTask(id: $id) {
+  	id,
+    task,
+    complete
   }
 }
 `;

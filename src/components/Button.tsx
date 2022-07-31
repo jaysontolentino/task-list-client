@@ -2,12 +2,12 @@
 interface IButton {
     text: string
     xs?: string
-    onClick?: () => void
+    onClick?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const Button: React.FC<IButton> = ({text, xs, onClick}) => {
     return (
-        <button className={`bg-[#FEB708] rounded ${xs} hover:opacity-80`} onClick={onClick}>
+        <button className={`bg-[#FEB708] rounded ${xs} hover:opacity-80`} onClick={onClick} >
             {text}
         </button>
     )

@@ -1,39 +1,54 @@
-import { useMutation } from '@apollo/client'
 import { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { ADD_TASK } from '../graphql/mutations'
+import AppContext from '../context/AppContext'
 import { useForm } from '../hooks/useForm'
+import useTask from '../hooks/useTask'
 import Alert from './Alert'
 import Button from './Button'
 
-const initialState = {
-    task: '',
-    description: ''
-}
+let initialState = {}
 
 function Modal() {
 
-    const context = useContext(AuthContext)
+    const context = useContext(AppContext);
+    const {data: input, error, onChange, onSubmit, setError, reset} = useForm(handleSubmit, initialState)
+    const modalType = context?.modal.type
+    const taskId = context?.modal.id
 
-    const {data, error, onChange, onSubmit, setError, reset} = useForm(handleSubmit, initialState)
+    const {getTask, addTask} = useTask(taskId)
+    const {data, error: getTaskError} = getTask
 
-    const [addTask] = useMutation(ADD_TASK, {
-        onCompleted(data) {
-            reset(initialState)
-            context?.toggleModal()
-        },
-        onError(error) {
-            setError(error.message)
-        },
-    })
-
-    function handleSubmit() {
-        addTask({
-            variables: {
-                input: data
-            }
-        })
+    if(data) {
+        initialState = {
+            task: data.task.task,
+            description: data.task.description
+        }
     }
+
+    if(getTaskError) {
+        initialState = {
+            task: '',
+            description: ''
+        }
+    } 
+    
+    function handleSubmit() {
+        
+        if(modalType === 'add') {
+            addTask({
+                variables: {input},
+                onCompleted() {
+                    reset(initialState)
+                    context?.closeModal()
+                },
+                onError(error) {
+                    setError(error.message)
+                },
+            })
+        }
+        
+    }
+
+    
 
 
     return (
@@ -67,9 +82,7 @@ function Modal() {
                     </div>  
                 </form>
 
-                
-
-                <Button xs="w-8 absolute top-0 right-0" text="X" onClick={context?.toggleModal} />
+                <Button xs="w-8 absolute top-0 right-0" text="X" onClick={context?.closeModal} />
                 
             </div>
         </div>

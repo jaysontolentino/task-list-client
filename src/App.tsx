@@ -1,5 +1,6 @@
 
 import {Routes, Route} from 'react-router-dom'
+import Authenticated from './components/Authenticated'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
@@ -16,8 +17,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             {/* Public routes */}
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
+            <Route element={<Authenticated />}>
+              <Route path='login' element={<Login />} />
+              <Route path='register' element={<Register />} />
+            </Route>
+            
 
             {/* Private Routes */}
             <Route element={<ProtectedRoute />}>

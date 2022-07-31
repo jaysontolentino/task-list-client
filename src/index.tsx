@@ -5,12 +5,12 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import './index.css'
 import App from './App'
 import client from './graphql/client'
-import { AuthProvider } from './context/AuthContext'
+import {AppProvider} from './context/AppContext'
 
 const root = document.getElementById('root') as HTMLElement
 
 ReactDOM.createRoot(root).render(
-  <AuthProvider>
+  <AppProvider>
     <ApolloProvider client={client}>
       <React.StrictMode>
         <BrowserRouter>
@@ -20,6 +20,6 @@ ReactDOM.createRoot(root).render(
         </BrowserRouter>
       </React.StrictMode>
     </ApolloProvider>    
-  </AuthProvider>
+  </AppProvider>
 
 );

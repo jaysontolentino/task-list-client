@@ -1,58 +1,41 @@
-import {Link, useLocation, useNavigate} from 'react-router-dom'
-import { useMutation } from '@apollo/client'
+import {Link, useLocation} from 'react-router-dom'
 import { Logo } from "./Logo"
 import { useAuth } from '../hooks/useAuth'
-import { LOGOUT } from '../graphql/mutations'
-import { removeAccessToken } from '../utils/localStorage'
-import { useContext, useEffect } from 'react'
-import { AuthContext } from '../context/AuthContext'
 import Button from './Button'
+import AppContext from '../context/AppContext';
+import { useContext } from 'react';
 
 function Header() {
 
-    const context = useContext(AuthContext)
-
-    const [logout, cache] = useMutation(LOGOUT, {
-        onCompleted() {
-            removeAccessToken()
-            context?.removeUser()
-            cache.reset()
-            navigate('/login', {
-                replace: true
-            })
-        }
-    }) 
+    const context = useContext(AppContext);
     const {pathname} = useLocation()
-    const navigate = useNavigate()
-    const user = useAuth()
+    const {user, authenticated, logout} = useAuth()
 
     function handleLogout() {
         logout()
     }
-
-
-    useEffect(() => {
-    }, [context]);
-
 
     return (
         <header className="w-full p-[5px] text-white bg-[#23AAAA]">
             <div className="container flex justify-between">
                 <Logo width="122px" />
 
-                {user &&
-                <ul className='flex justify-around items-center'>
-                    <li><Button xs="px-[12px] py-2" onClick={context?.toggleModal} text="New Task" /></li>
-                    <li><Button xs="px-[12px] py-2" onClick={handleLogout} text="Logout" /></li>
-                </ul>
-                }
-
-                {!user &&
-                <Link 
-                to={pathname === '/login' ? '/register' : '/login' } 
-                className="bg-[#FEB708] px-[12px] py-2 rounded">
+                <nav className='flex justify-between gap-x-3 items-end'>
+                    {(user && authenticated) ? 
+                    <>
+                        <Button xs="px-[12px] py-2" onClick={context?.addModal} text="Create Task" />
+                        <Button xs="px-[12px] py-2" onClick={handleLogout} text="Logout" />
+                    </>
+                    
+                    :
+                    <Link to={pathname === '/login' ? '/register' : '/login' } 
+                    className="bg-[#FEB708] px-[12px] py-2 rounded">
                     {pathname === '/login' ?  'Register' : 'Login'}
-                </Link>}
+                    </Link>
+                    }
+                </nav>
+                
+                
             </div>
         </header>
     )

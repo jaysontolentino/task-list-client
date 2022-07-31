@@ -16,6 +16,19 @@ query UserTasks {
     id,
     task,
     description,
+    complete,
+    created_at
+  }
+}
+`;
+
+export const GET_TASK = gql`
+query GetTaskByID($id: String!) {
+  getTask(id: $id) {
+    id,
+    task,
+    description,
+    complete,
     created_at
   }
 }
