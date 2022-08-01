@@ -58,6 +58,17 @@ mutation CompleteTask($id: String!) {
 }
 `;
 
+export const UPDATE_TASK = gql`
+mutation UpdateTask($payload: InputUpdateTask!, $id: String!) {
+  updateTask(payload: $payload, id: $id) {
+    id,
+    task,
+    description,
+    complete
+  }
+}
+`;
+
 export const DELETE_TASK = gql`
 mutation DeleteTask($id: String!) {
   deleteTask(id: $id) {

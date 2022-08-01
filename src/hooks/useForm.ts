@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-export const useForm = function(callback: () => any, state = {}) {
-    const [data, setData] = useState(state)
+export const useForm = function<T>(callback: () => any, state: T) {
+    const [data, setData] = useState<T>(state)
     const [error, setError] = useState('')
 
     function onChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
@@ -24,6 +24,7 @@ export const useForm = function(callback: () => any, state = {}) {
 
     return {
         data,
+        setData,
         error,
         onChange,
         onSubmit,

@@ -7,7 +7,6 @@ type IAUthUser = {
 }
 
 type ModalState = {
-    type: 'add' | 'edit'
     isOpen: boolean
     id?: string | number
 }
@@ -22,8 +21,7 @@ export type IAuthContext = {
     modal: ModalState
     setUser: (user: IAUthUser | null) => void
     removeUser: () => void
-    addModal: () => void
-    editModal: (id: string | number) => void
+    openModal: (id: string | number) => void
     closeModal: () => void
 }
 
@@ -38,8 +36,8 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
     })
 
     const [modal, setModal] = useState<ModalState>({
-        type: 'add',
-        isOpen: false
+        isOpen: false,
+        id: ''
     })
 
 
@@ -57,18 +55,9 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
         })
     }
 
-    const addModal = () => {
+    const openModal = (id: string | number) => {
         setModal({
             ...modal,
-            type: 'add',
-            isOpen: true
-        })
-    }
-
-    const editModal = (id: string | number) => {
-        setModal({
-            ...modal,
-            type: 'edit',
             isOpen: true,
             id
         })
@@ -76,7 +65,6 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
 
     const closeModal = () => {
         setModal({
-            type: 'add',
             isOpen: false,
             id: ''
         })
@@ -88,8 +76,7 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
             modal, 
             setUser,
             removeUser,
-            addModal,
-            editModal,
+            openModal,
             closeModal
             }}>
             {children}

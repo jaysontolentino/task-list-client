@@ -1,16 +1,20 @@
 import { useMutation, useQuery } from "@apollo/client"
-import { ADD_TASK, COMPLETE_TASK, DELETE_TASK } from "../graphql/mutations"
+import { ADD_TASK, COMPLETE_TASK, DELETE_TASK, UPDATE_TASK } from "../graphql/mutations"
 import { GET_TASK, TASKS } from "../graphql/queries"
 
 function useTask(id?: any) {
 
     const getTasks = useQuery(TASKS)
 
-    const getTask = useQuery(GET_TASK, {
-        variables: {
-            id
-        }
-    })
+    const useGetTask = (id: string | number | undefined) => {
+        const task = useQuery(GET_TASK, {
+            variables: {
+                id
+            }
+        })
+
+        return task
+    }
     
     const [addTask] = useMutation(ADD_TASK, {
         update(cache, {data}) {
@@ -34,6 +38,8 @@ function useTask(id?: any) {
         }
     })
 
+    const [updateTask] = useMutation(UPDATE_TASK)
+
     const [completeTask] = useMutation(COMPLETE_TASK)
 
     const [deleteTask] = useMutation(DELETE_TASK, {
@@ -45,8 +51,9 @@ function useTask(id?: any) {
 
     return {
         getTasks,
-        getTask,
+        useGetTask,
         addTask,
+        updateTask,
         completeTask,
         deleteTask
     }

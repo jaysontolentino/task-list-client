@@ -23,8 +23,8 @@ query UserTasks {
 `;
 
 export const GET_TASK = gql`
-query GetTaskByID($id: String!) {
-  getTask(id: $id) {
+query GetTask($id: String!) {
+  getById(id: $id) {
     id,
     task,
     description,

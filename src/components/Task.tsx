@@ -8,7 +8,7 @@ export interface ITask {
     task: string
     description: string
     complete: boolean
-    created_at?: Date
+    created_at?: any
 }
 
 
@@ -41,14 +41,14 @@ export const Task: React.FC<{task: ITask}> = ({task}) => {
             <article className={`py-2 text-sm ${task.complete && 'line-through'}`}>{task.description}</article>
 
             <footer className='flex justify-between py-2 border-t-2'>
-                <span className='text-xs italic'>July 28, 2022</span>
+                <span className='text-xs italic'>{new Date(task.created_at).toDateString()}</span>
 
                 <div className='flex gap-x-2'>
                     {!task.complete && <Button xs="text-sm py-1 px-2" text="Mark as complete" onClick={e => {
                         onCompleteTask(task.id)
                     }} />}
-                    {!task.complete && <Button xs="text-sm py-1 px-2" text="Update" onClick={ e => {
-                        context?.editModal(task.id)
+                    {!task.complete && <Button xs="text-sm py-1 px-2" text="Edit" onClick={ e => {
+                        context?.openModal(task.id)
                     }} />}
                     <Button xs="text-sm py-1 px-2" text="Delete" onClick={e => {
                         onDeleteTask(task.id)

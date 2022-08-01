@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import AddTask from '../components/AddTask';
 import Loading from '../components/Loading'
 import Modal from '../components/Modal'
 import Task, { ITask } from '../components/Task'
@@ -17,11 +18,13 @@ function Home() {
 
     return (
         <>        
-            <div className="container flex flex-col justify-center items-center">
+            <div className="container flex flex-col justify-center items-center gap-y-4">
+
+                <AddTask />
 
                 {error && <span>{error.message}</span>}
 
-                <div className="w-3/4 flex flex-col bg-white shadow-md rounded p-4 gap-y-4">
+                <div className="w-2/3 flex flex-col bg-white shadow-md rounded p-4 gap-y-4">
 
                     <div className=" w-full text-center inline-block">
                         <h1 className="font-medium text-2xl">My Task List</h1>
