@@ -11,8 +11,8 @@ export const Logo: FC<IProps> = ({width, height}) => {
     )
 }
 
-export const FooterLogo: FC<IProps> = ({width, height}) => {
+export const FooterLogo = () => {
     return (
-        <img src="images/carelulu_logo_square_white.png" width={width} height={height} alt="" />
+        <img src="images/carelulu_logo_square_white.png" className="w-[153px] h-[131px] sm:w-[122px] sm:h-[105px]" alt="footer_logo" />
     )
 }

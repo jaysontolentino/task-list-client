@@ -24,7 +24,7 @@ function Home() {
 
                 {error && <span>{error.message}</span>}
 
-                <div className="w-2/3 flex flex-col bg-white shadow-md rounded p-4 gap-y-4">
+                <div className="w-full flex flex-col bg-white lg:w-2/4 lg:shadow-md lg:rounded p-4 gap-y-4 ">
 
                     <div className=" w-full text-center inline-block">
                         <h1 className="font-medium text-2xl">My Task List</h1>

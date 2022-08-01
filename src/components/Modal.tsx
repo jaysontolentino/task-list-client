@@ -54,8 +54,8 @@ function Modal() {
     if(loading) return <Loading />
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 bg-[#23AAAA]">
-            <div className="w-1/3 flex flex-col bg-white shadow-sm rounded p-4 gap-y-4 relative">
+        <div className="w-screen h-screen p-8 flex justify-center items-center fixed top-0 left-0 bg-[#23AAAA]">
+            <div className="w-full flex flex-col bg-white shadow-sm rounded p-4 gap-y-4 relative lg:w-1/3">
                 <div className=" w-full text-center inline-block">
                     <h1 className="font-medium text-2xl">Edit Task</h1>
                 </div>

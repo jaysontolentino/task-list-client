@@ -24,7 +24,7 @@ function Tasks() {
 
                 {error && <span>{error.message}</span>}
 
-                <div className="w-1/5 flex flex-col bg-white shadow-md rounded p-4 gap-y-4">
+                <div className="w-1/5 flex flex-col bg-white shadow-md rounded p-4 gap-y-4 sm:w-full">
 
                     <div className=" w-full text-center inline-block">
                         <h1 className="font-medium text-2xl">My Task List</h1>

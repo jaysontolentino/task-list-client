@@ -35,7 +35,7 @@ export const Task: React.FC<{task: ITask}> = ({task}) => {
     }
 
     return (
-        <div className={`flex flex-col border py-3 px-2 rounded-md ${task.complete ? 'bg-slate-200' : 'bg-teal-50'} text-slate-700 shadow-md`}>
+        <div className={`w-full flex flex-col border py-3 px-2 rounded-md ${task.complete ? 'bg-slate-200' : 'bg-teal-50'} text-slate-700 shadow-md`}>
             <header className={`font-medium text-xl  border-b-2 py-2 ${task.complete && 'line-through'}`}>{task.task}</header>
 
             <article className={`py-2 text-sm ${task.complete && 'line-through'}`}>{task.description}</article>

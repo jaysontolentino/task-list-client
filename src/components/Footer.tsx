@@ -4,10 +4,10 @@ import { FooterLogo } from "./Logo"
 function Footer() {
     return (
         <footer className="w-full pt-[35px] pb-[50px] text-white bg-[#23AAAA]">
-            <div className="container flex">
-                <FooterLogo width="153px" height="131px" />
+            <div className="container flex justify-center items-center flex-col gap-y-5 lg:flex-row">
+                <FooterLogo />
 
-                <div className="md:hidden lg:flex ml-20">
+                <div className="hidden lg:flex ml-20">
                     <div className="w-40">
                         <span className="uppercase font-medium text-sm mb-2 inline-block">for parents</span>
                         <ul>
@@ -40,6 +40,21 @@ function Footer() {
                         </ul>
                     </div>
                 </div>
+
+                <div className="w-full flex justify-center lg:hidden">
+                    <div className="w-full flex flex-col justify-center items-center gap-y-5">
+                        <ul className="flex justify-between gap-x-4">
+                            <li className="text-sm hover:underline"><a href="#">About Us</a></li>
+                            <li className="text-sm hover:underline"><a href="#">How it Works</a></li>
+                            <li className="text-sm hover:underline"><a href="#">Contact Us</a></li>
+                        </ul>
+
+                        <ul className="flex justify-between gap-x-4">
+                            <li className="text-sm hover:underline"><a href="#">Parent Resources</a></li>
+                            <li className="text-sm hover:underline"><a href="#">Provider Resources</a></li>
+                        </ul>
+                    </div>
+                </div>    
 
                 <div className="flex flex-col items-center">
                     <div className="flex mb-4">

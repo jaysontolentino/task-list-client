@@ -34,7 +34,7 @@ function AddTask() {
     }
 
     return (
-        <div className="w-2/3 flex flex-col bg-white shadow-sm rounded p-4 gap-y-4 relative">
+        <div className="w-full flex flex-col bg-white shadow-sm rounded p-4 gap-y-4 lg:w-2/4">
             <div className=" w-full inline-block">
                 <h1 className="font-medium text-lg">Add Task</h1>
             </div>
